@@ -67,7 +67,7 @@ function App() {
 
               <p>2월 17일 발행</p>
               {
-                modal[i] == true ? <Modal/> : null
+                modal[i] == true ? <Modal i = {i} 글제목={글제목} 글제목변경={글제목변경} modal={modal}/> : null
               }
               
             </div>
@@ -79,12 +79,23 @@ function App() {
   );
 }
 
-function Modal(){
+function Modal(props){
+  let copy = props.글제목;
   return (
     <div className='modal'>
-      <h4>제목</h4>
+      <h4>{props.글제목[props.i]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <div>
+        <input onChange = {(e)=>{
+          copy[props.i] = e.target.value
+        }}></input>
+        <button onClick = {()=>{
+          alert('수정 완료')
+          props.modal[props.i]=false;
+          props.글제목변경(copy);
+        }}>수정</button>
+      </div>
     </div>
   )
 }
