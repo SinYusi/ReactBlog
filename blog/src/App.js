@@ -83,9 +83,11 @@ function Modal(props){
   let copy = props.글제목;
   return (
     <div className='modal'>
-      <h4>{props.글제목[props.i]}</h4>
+      {/*props를 활용하여 모달에 알맞게 제목 띄우기*/}
+      <h4>{props.글제목[props.i]}</h4> 
       <p>날짜</p>
       <p>상세내용</p>
+      {/* 글제목 수정하기 */}
       <div>
         <input onChange = {(e)=>{
           copy[props.i] = e.target.value
