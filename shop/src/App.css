@@ -1,3 +1,17 @@
+.main-bg{
+  height: 500px;
+  background-image: url('./img/eatWithPeople.jpg');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search{
+  width: 60%;
+  height: 40px;
+}
+
 .App {
   text-align: center;
 }
