@@ -6,6 +6,7 @@ import data from './data.js';
 function App() {
 
   let [restaurant] = useState(data)
+  let fileAddress = ['/img/MealPlanB.jpg','/img/GoGos.jpg','/img/ChinaHouse.jpg']
 
   return (
     <div className="App">
@@ -41,27 +42,22 @@ function App() {
       </div>
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img src={process.env.PUBLIC_URL + '/img/MealPlanB.jpg'} height={200} width={200} alt = "밀플랜비"/>
-            <h4>{restaurant[0].title}</h4>
-            <p>{restaurant[0].content}</p>
-          </div>
-          
-          <div className="col-md-4">
-            <img src={process.env.PUBLIC_URL + '/img/GoGos.jpg'} height={200} width={200} alt="고고스"/>
-            <h4>{restaurant[1].title}</h4>
-            <p>{restaurant[1].content}</p>
-          </div>
-
-          <div className="col-md-4">
-            <img src={process.env.PUBLIC_URL + '/img/ChinaHouse.jpg'} height={200}width={200} alt='중국집'/>
-            <h4>{restaurant[2].title}</h4>
-            <p>{restaurant[2].content}</p>
-          </div>
+          restaurant.map()
+          <restaurant_list></restaurant_list>
         </div>
       </div>
     </div>
   );
+}
+
+function restaurant_list(){
+  return(
+    <div className="col-md-4">
+      <img src={process.env.PUBLIC_URL + '/img/ChinaHouse.jpg'} height={200}width={200} alt='중국집'/>
+      <h4>{restaurant[2].title}</h4>
+      <p>{restaurant[2].content}</p>
+    </div>
+  )
 }
 
 export default App;
