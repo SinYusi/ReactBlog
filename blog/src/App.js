@@ -10,10 +10,13 @@ function App() {
   //html 문법으로 변수 집어 넣는 방법
   //document.querySelector('h4').innerHTML = post;
 
+
+  let copy
   let [logo,setLogo] = useState('ReactBlog');
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학', '리액트 강의']);
   let [따봉, 따봉변경] = useState(new Array(글제목.length).fill(0));
   let [modal, setModal] = useState(new Array(글제목.length).fill(false));
+  let [입력값, 입력값변경] = useState('');
   return (
     <div className="App">
       
@@ -58,14 +61,23 @@ function App() {
                 modalCopy[i] == false ? modalCopy[i] = true : modalCopy[i] = false
                 setModal(modalCopy);
               }}>{글제목[i]} 
-                <span onClick = {() => {
-                  let copy = [...따봉];
+                <span onClick = {(e) => {
+                  e.stopPropagation();
+                  copy = [...따봉];
                   copy[i] = copy[i]+1;
                   따봉변경(copy)
                 }}>👍</span> { 따봉[i] } 
               </h4>
-
+              
               <p>2월 17일 발행</p>
+
+              <button onClick={(e)=>{
+                copy = 글제목
+                copy.splice(i, 1);
+                console.log(copy);
+                글제목변경(copy);
+              }}>삭제</button>
+
               {
                 modal[i] == true ? <Modal i = {i} 글제목={글제목} 글제목변경={글제목변경} modal={modal}/> : null
               }
@@ -74,6 +86,17 @@ function App() {
           )
         })
       }
+      <div>
+        <input onChange={(e)=>{
+          입력값변경(e.target.value);
+        }}></input>
+        <button onClick={(e)=>{
+          copy = [...글제목];
+          copy.unshift(입력값)
+          글제목변경(copy);
+        }}>추가</button>
+      </div>
+      
       
     </div>
   );
@@ -83,18 +106,14 @@ function Modal(props){
   let copy = props.글제목;
   return (
     <div className='modal'>
-      {/*props를 활용하여 모달에 알맞게 제목 띄우기*/}
-      <h4>{props.글제목[props.i]}</h4> 
+      <h4>{props.글제목[props.i]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      {/* 글제목 수정하기 */}
       <div>
         <input onChange = {(e)=>{
           copy[props.i] = e.target.value
         }}></input>
         <button onClick = {()=>{
-          alert('수정 완료')
-          props.modal[props.i]=false;
           props.글제목변경(copy);
         }}>수정</button>
       </div>
