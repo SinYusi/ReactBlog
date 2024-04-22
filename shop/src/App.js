@@ -1,4 +1,4 @@
-import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import { useState } from 'react';
 import data from './data.js';
@@ -6,7 +6,8 @@ import data from './data.js';
 function App() {
 
   let [restaurant] = useState(data)
-  let fileAddress = ['/img/MealPlanB.jpg','/img/GoGos.jpg','/img/ChinaHouse.jpg']
+  let fileAddress = ['/img/MealPlanB.jpg', '/img/GoGos.jpg', '/img/ChinaHouse.jpg']
+  let restaurant_name = ['밀플랜비', '고고스', '중국집']
 
   return (
     <div className="App">
@@ -27,7 +28,7 @@ function App() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">
                   Separated link
-                </NavDropdown. Item>
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
@@ -42,20 +43,27 @@ function App() {
       </div>
       <div className="container">
         <div className="row">
-          restaurant.map()
-          <restaurant_list></restaurant_list>
+
+          {
+            restaurant.map((a, i) => {
+              return (
+                <RestaurantList restaurant={restaurant} fileAddress={fileAddress} i={i} restaurant_name={restaurant_name}></RestaurantList>
+              )
+            })
+          }
+          
         </div>
       </div>
     </div>
   );
 }
 
-function restaurant_list(){
-  return(
+function RestaurantList(props) {
+  return (
     <div className="col-md-4">
-      <img src={process.env.PUBLIC_URL + '/img/ChinaHouse.jpg'} height={200}width={200} alt='중국집'/>
-      <h4>{restaurant[2].title}</h4>
-      <p>{restaurant[2].content}</p>
+      <img src={process.env.PUBLIC_URL + props.fileAddress[props.i]} height={200} width={200} alt={props.restaurant_name} />
+      <h4>{props.restaurant[props.i].title}</h4>
+      <p>{props.restaurant[props.i].content}</p>
     </div>
   )
 }
