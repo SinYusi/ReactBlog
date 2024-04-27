@@ -1,14 +1,19 @@
+/* eslint-disable */
+
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import { useState } from 'react';
 import data from './data.js';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet, Navigate } from 'react-router-dom'
+import Detail from './routes/Detail.js';
+import Event from './routes/Event.js';
 
 function App() {
 
   let [restaurant] = useState(data)
   let fileAddress = ['/img/MealPlanB.jpg', '/img/GoGos.jpg', '/img/ChinaHouse.jpg']
   let restaurant_name = ['밀플랜비', '고고스', '중국집']
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -18,17 +23,13 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <Nav.Link href="#home" onClick={() => { navigate('/') }}>Home</Nav.Link>
+              <Nav.Link href="#event" onClick={() => { navigate('/event') }}>Event</Nav.Link>
+              <NavDropdown title="Event" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#one" onClick={() => { navigate('/event/one') }}>One</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
+                <NavDropdown.Item href="#two" onClick={() => { navigate('/event/two') }}>
+                  Two
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
@@ -70,25 +71,17 @@ function App() {
           restaurant.map((a, i) => {
             return (
               <Route path={'/detail' + restaurant[i].title} element={
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <img src={fileAddress[i]} width="100%" />
-                    </div>
-                    <div className="col-md-6">
-                      <h4 className="pt-5">{restaurant[i].title}</h4>
-                      <p>{restaurant[i].ment}</p>
-                      <p>{restaurant[i].price}</p>
-                      <button className="btn btn-danger">주문하기</button>
-                      <Link to="/">홈으로 가기</Link>
-                    </div>
-                  </div>
-                </div>
+                <Detail fileAddress={fileAddress} restaurant={restaurant} i={i} />
               }
               ></Route>
             )
           })
         }
+        <Route path='/event' element={<Event />}>
+          <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
+          <Route path='two' element={<div>생일기념 쿠폰받기</div>} />
+        </Route>
+        <Route path="*" element={<div>없는페이지</div>} />
       </Routes>
 
     </div>
@@ -108,5 +101,6 @@ function RestaurantList(props) {
     </div>
   )
 }
+
 
 export default App;
