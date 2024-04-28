@@ -11,7 +11,6 @@ import Event from './routes/Event.js';
 function App() {
 
   let [restaurant] = useState(data)
-  let fileAddress = ['/img/MealPlanB.jpg', '/img/GoGos.jpg', '/img/ChinaHouse.jpg']
   let restaurant_name = ['밀플랜비', '고고스', '중국집']
   let navigate = useNavigate();
 
@@ -19,7 +18,7 @@ function App() {
     <div className="App">
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">혼밥근절</Navbar.Brand>
+          <Navbar.Brand href="#home" onClick={() => { navigate('/') }}>혼밥근절</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -54,7 +53,7 @@ function App() {
                 {
                   restaurant.map((a, i) => {
                     return (
-                      <RestaurantList restaurant={restaurant} fileAddress={fileAddress} i={i} restaurant_name={restaurant_name}></RestaurantList>
+                      <RestaurantList restaurant={restaurant} i={i} restaurant_name={restaurant_name}></RestaurantList>
                     )
                   })
                 }
@@ -70,8 +69,8 @@ function App() {
         {
           restaurant.map((a, i) => {
             return (
-              <Route path={'/detail' + restaurant[i].title} element={
-                <Detail fileAddress={fileAddress} restaurant={restaurant} i={i} />
+              <Route path={'/detail/:id'} element={
+                <Detail restaurant={restaurant} i={i} />
               }
               ></Route>
             )
@@ -93,8 +92,8 @@ function App() {
 function RestaurantList(props) {
   return (
     <div className="col-md-4">
-      <Link to={'detail' + props.restaurant[props.i].title} style={{ textDecorationLine: 'none' }}>
-        <img src={process.env.PUBLIC_URL + props.fileAddress[props.i]} height={200} width={200} alt={props.restaurant_name} />
+      <Link to={'detail/' + props.restaurant[props.i].id} style={{ textDecorationLine: 'none' }}>
+        <img src={process.env.PUBLIC_URL + '/img/' + props.restaurant[props.i].title + '.jpg'} height={200} width={200} alt={props.restaurant_name} />
         <h4 style={{ color: 'black' }}>{props.restaurant[props.i].title}</h4>
         <p style={{ color: 'black' }}>{props.restaurant[props.i].content}</p>
       </Link>
