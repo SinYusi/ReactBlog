@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
@@ -11,11 +12,24 @@ import styled from "styled-components"
 // `
 
 function Detail(props) {
+
+  useEffect(() => {
+    setTimeout(() => { setAlert(!alert) }, 2000)
+  })
+
   let { id } = useParams();
   let curData = props.restaurant.find((item) => { return (item.id == id) })
+  let [alert, setAlert] = useState(true);
+
+
   return (
     <div className="container">
       {/* <YellowBtn bg='blue'>버튼</YellowBtn> */}
+      {
+        alert == true
+          ? <div className="alert alert-warning">2초이내 구매시 할인</div>
+          : null
+      }
 
       <div className="row">
         <div className="col-md-6">
