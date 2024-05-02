@@ -13,14 +13,25 @@ import styled from "styled-components"
 
 function Detail(props) {
 
-  useEffect(() => {
-    setTimeout(() => { setAlert(!alert) }, 2000)
-  })
-
   let { id } = useParams();
   let curData = props.restaurant.find((item) => { return (item.id == id) })
+  let [count,setCount] = useState(0);
   let [alert, setAlert] = useState(true);
+  let [num, setNum] = useState('');
+  let [textAlert, settextAlert] = useState(false);
 
+  useEffect(() => {
+    let a = setTimeout(() => { setAlert(false) }, 2000)
+    return () => {
+      clearTimeout(a)
+    }
+  }, [])
+
+  useEffect(() => {
+    if(isNaN(num) == true){
+      settextAlert(true);
+    }
+  })
 
   return (
     <div className="container">
@@ -36,6 +47,10 @@ function Detail(props) {
           <img src={process.env.PUBLIC_URL + '/img/' + curData.title + '.jpg'} width="100%" alt={curData.title} />
         </div>
         <div className="col-md-6">
+          {
+            textAlert == true ? <p>숫자만 적으셈</p> : null
+          }
+          <input type="text" onChange={(e)=>{setNum(e.target.value)}}></input>
           <h4 className="pt-5">{curData.title}</h4>
           <p>{curData.ment}</p>
           <p>{curData.price}</p>
