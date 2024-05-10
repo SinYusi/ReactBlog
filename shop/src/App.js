@@ -7,10 +7,11 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet, Navigate } from 'react-router-dom'
 import Detail from './routes/Detail.js';
 import Event from './routes/Event.js';
+import axios from 'axios'
 
 function App() {
 
-  let [restaurant] = useState(data)
+  let [restaurant, setRestaurant] = useState(data)
   let restaurant_name = ['밀플랜비', '고고스', '중국집']
   let navigate = useNavigate();
 
@@ -60,6 +61,16 @@ function App() {
 
               </div>
             </div>
+            <button onClick={() => {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((결과) => {
+                  let copy = restaurant.concat(결과.data)
+                  setRestaurant(copy)
+                })
+                .catch(() => {
+                  console.log('실패함ㅅㄱ')
+                })
+            }}>버튼</button>
           </div>
         } />
 
