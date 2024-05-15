@@ -20,11 +20,19 @@ function Detail(props) {
   let [num, setNum] = useState('');
   let [textAlert, settextAlert] = useState(false);
   let [tab, setTab] = useState(0);
+  let [fade2, setFade2] = useState('')
 
   useEffect(() => {
     let a = setTimeout(() => { setAlert(false) }, 2000)
     return () => {
       clearTimeout(a)
+    }
+  }, [])
+
+  useEffect(() => {
+    setTimeout(() => {setFade2('end')})
+    return ()=>{
+      setFade2('')
     }
   }, [])
 
@@ -35,7 +43,7 @@ function Detail(props) {
   })
 
   return (
-    <div className="container">
+    <div className={'container start ' + fade2}>
       {/* <YellowBtn bg='blue'>버튼</YellowBtn> */}
       {
         alert == true
@@ -82,8 +90,15 @@ function TabContent({ tab }) {
   //   return (<div>내용 1</div>)
   // if (props.tab == 2)
   //   return (<div>내용 2</div>)
+  let [fade, setFade] = useState('')
+  useEffect(() => {
+    setTimeout(() => { setFade('end') }, 10)
+    return () => {
+      setFade('')
+    }
+  }, [tab])
   return (
-    <div className="start end">
+    <div className={'start ' + fade}>
       {[<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][tab]}
     </div>
   )
