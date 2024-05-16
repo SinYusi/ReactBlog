@@ -8,6 +8,7 @@ import { Routes, Route, Link, useNavigate, Outlet, Navigate } from 'react-router
 import Detail from './routes/Detail.js';
 import Event from './routes/Event.js';
 import axios from 'axios'
+import Cart from './routes/Cart.js'
 
 function App() {
 
@@ -101,7 +102,9 @@ function App() {
           <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
           <Route path='two' element={<div>생일기념 쿠폰받기</div>} />
         </Route>
+        <Route path="/cart" element={<Cart></Cart>}/>
         <Route path="*" element={<div>없는페이지</div>} />
+        
       </Routes>
 
     </div>
@@ -114,7 +117,7 @@ function RestaurantList(props) {
   return (
     <div className="col-md-4">
       <Link to={'detail/' + props.restaurant[props.i].id} style={{ textDecorationLine: 'none' }}>
-        <img src={process.env.PUBLIC_URL + '/img/' + props.restaurant[props.i].title + '.jpg'} height={200} width={200} alt={props.restaurant_name} />
+        <img src={process.env.PUBLIC_URL + '/img/' + props.restaurant[props.i].title + '.jpg'} height={200} width={200} alt={props.restaurant_name[props.i]} />
         <h4 style={{ color: 'black' }}>{props.restaurant[props.i].title}</h4>
         <p style={{ color: 'black' }}>{props.restaurant[props.i].content}</p>
       </Link>
