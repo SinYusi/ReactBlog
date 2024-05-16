@@ -62,14 +62,18 @@ function App() {
               </div>
             </div>
             <button onClick={() => {
-              axios.get('https://codingapple1.github.io/shop/data2.json')
+              setLoading(true);
+              setCountClick(countClick + 1)
+              countClick < 3 ? axios.get('https://codingapple1.github.io/shop/data' + (countClick + 1) + '.json')
                 .then((결과) => {
                   let copy = restaurant.concat(결과.data)
                   setRestaurant(copy)
                 })
                 .catch(() => {
                   console.log('실패함ㅅㄱ')
-                })
+                  setLoading(false)
+                }) : <h4>9개 이상은 안됨</h4>
+
             }}>버튼</button>
           </div>
         } />
