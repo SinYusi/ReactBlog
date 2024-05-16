@@ -14,6 +14,8 @@ function App() {
   let [restaurant, setRestaurant] = useState(data)
   let restaurant_name = ['밀플랜비', '고고스', '중국집']
   let navigate = useNavigate();
+  let [countClick, setCountClick] = useState(1);
+  let [loading, setLoading] = useState(false);
 
   return (
     <div className="App">
@@ -43,6 +45,9 @@ function App() {
         }
         <Route path="/" element={
           <div>
+            {
+              loading == true ? <h4>로딩 중...</h4> : null
+            }
             <div className="main-bg">
               <input type='text' className='search'></input>
             </div>
@@ -68,6 +73,7 @@ function App() {
                 .then((결과) => {
                   let copy = restaurant.concat(결과.data)
                   setRestaurant(copy)
+                  setLoading(false)
                 })
                 .catch(() => {
                   console.log('실패함ㅅㄱ')
