@@ -22,11 +22,16 @@ let basket = createSlice({
         plusCount(state, action) {
             state[action.payload].count++
             return state
+        },
+        plusGoods(state, action) {
+            console.log(state)
+            let tem = { id: action.payload.id, name: action.payload.title, count: 1 }
+            state.push(tem)
         }
     }
 })
 
-export let { plusCount } = basket.actions
+export let { plusCount, plusGoods } = basket.actions
 
 export default configureStore({
     reducer: {

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { changeName, plusCount } from "../store.js"
+import { changeName } from "../store"
 
 function Cart() {
 
@@ -31,7 +31,7 @@ function Cart() {
                                 <th>{basket[i].count}</th>
                                 <th>
                                     <button onClick={() => {
-                                        dispatch(plusCount(i))
+                                        dispatch(changeName(i))
                                     }}>+</button>
                                 </th>
                             </tbody>

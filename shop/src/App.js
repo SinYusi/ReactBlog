@@ -27,7 +27,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home" onClick={() => { navigate('/') }}>Home</Nav.Link>
-              <Nav.Link href="#event" onClick={() => { navigate('/event') }}>Event</Nav.Link>
+              <Nav.Link href="Cart" onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
               <NavDropdown title="Event" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#one" onClick={() => { navigate('/event/one') }}>One</NavDropdown.Item>
                 <NavDropdown.Divider />

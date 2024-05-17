@@ -1,8 +1,11 @@
 /* eslint-disable */
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Link, Route, useParams } from "react-router-dom"
 import { Nav } from "react-bootstrap"
+import { plusGoods } from "./../store";
+import { useDispatch } from "react-redux";
+import Cart from "./Cart";
 
 //styled-components 실습
 // let YellowBtn = styled.button`
@@ -21,6 +24,7 @@ function Detail(props) {
   let [textAlert, settextAlert] = useState(false);
   let [tab, setTab] = useState(0);
   let [fade2, setFade2] = useState('')
+  let dispatch = useDispatch()
 
   useEffect(() => {
     let a = setTimeout(() => { setAlert(false) }, 2000)
@@ -30,8 +34,8 @@ function Detail(props) {
   }, [])
 
   useEffect(() => {
-    setTimeout(() => {setFade2('end')})
-    return ()=>{
+    setTimeout(() => { setFade2('end') })
+    return () => {
       setFade2('')
     }
   }, [])
@@ -63,7 +67,13 @@ function Detail(props) {
           <h4 className="pt-5">{curData.title}</h4>
           <p>{curData.ment}</p>
           <p>{curData.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button className="btn btn-danger" onClick={() => {
+            console.log(curData)
+            dispatch(plusGoods(curData))
+          }}>주문하기</button>
+          <Link to='/cart'>
+            <button>장바구니</button>
+          </Link>
         </div>
       </div>
 
